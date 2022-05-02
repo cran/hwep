@@ -3,7 +3,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-set.seed(999)
+set.seed(997)
 
 ## ----setup--------------------------------------------------------------------
 library(hwep)
@@ -71,6 +71,9 @@ qqplot(x = ppoints(length(uout$p_hwe)),
        ylab = "Empirical Quantiles",
        main = "QQ-plot")
 abline(0, 1, lty = 2, col = 2)
+
+## -----------------------------------------------------------------------------
+qqpvalue(pvals = uout$p_hwe, method = "base")
 
 ## -----------------------------------------------------------------------------
 plan("sequential")

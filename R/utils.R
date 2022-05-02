@@ -139,3 +139,70 @@ real_to_simplex <- function(y) {
 
   return(x)
 }
+
+
+
+#' Choose which levels to aggregate
+#'
+#' @param x A non-negative numeric vector.
+#' @param thresh A non-negative double. We aggregate when x < thresh
+#' @param like Need a little adjustment for likelihood approach
+#'
+#' @return A logical vector. It will place a \code{FALSE} wherever we will
+#'     aggregate those cells. It aggregates small cells until all cells have
+#'     at least the threshhold.
+#'
+#' @author David Gerard
+#'
+#' @noRd
+choose_agg <- function(x, thresh = 0, like = FALSE) {
+  stopifnot(thresh >= 0, length(thresh) == 1)
+  stopifnot(x >= 0)
+
+  if (thresh == 0) {
+    return(rep(TRUE, length.out = length(x)))
+  }
+
+  # all ok
+  which_keep <- x >= thresh
+  if (all(which_keep)) {
+    return(rep(TRUE, length.out = length(x)))
+  }
+
+  if (all(!which_keep) & !like) {
+    ibdr <- floor((length(x) - 1) / 4)
+    which_keep <- rep(FALSE, length.out = length(x))
+    which_keep[order(-x)][1:(ibdr + 1)] <- TRUE
+    return(which_keep)
+  } else if (all(!which_keep) & like) {
+    ibdr <- floor((length(x) - 1) / 4)
+    which_keep <- rep(FALSE, length.out = length(x))
+    which_keep[order(-x)][1:(ibdr + 2)] <- TRUE
+    return(which_keep)
+  }
+
+  # keep aggregating until done
+  aggvec <- c(x[which_keep], sum(x[!which_keep]))
+  while(any(aggvec < thresh)) {
+    which_keep[which_keep][which.min(x[which_keep])] <- FALSE
+    aggvec <- c(x[which_keep], sum(x[!which_keep]))
+  }
+
+  # aggregate as much as we can
+  ibdr <- floor((length(x) - 1) / 4)
+  if (sum(which_keep) < ibdr + 1 & !like) {
+    which_keep <- rep(FALSE, length.out = length(x))
+    which_keep[order(-x)][1:(ibdr + 1)] <- TRUE
+  } else if (sum(which_keep) <= ibdr + 1 & like) {
+    which_keep <- rep(FALSE, length.out = length(x))
+    which_keep[order(-x)][1:(ibdr + 2)] <- TRUE
+  }
+
+  return(which_keep)
+}
+
+
+
+
+
+

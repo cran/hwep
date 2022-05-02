@@ -10,7 +10,7 @@
 #'     \code{floor(ploidy/4)}. These should sum to less than 1, since
 #'     \code{1-sum(alpha)} is the assumed probability of no double
 #'     reduction.
-#' @param which_keep A lotical vector of length \code{ploidy + 1}. All of the
+#' @param which_keep A logical vector of length \code{ploidy + 1}. All of the
 #'     \code{FALSE}'s will be combined with each other. They form the last
 #'     group.
 #' @param omega A \code{sum(which_keep)+1} by \code{sum(which_keep)+1}
@@ -62,10 +62,10 @@ uobj <- function(nvec, alpha, omega = NULL, which_keep = NULL) {
 
 #' Generalized inverse of a symmetric p.d. matrix
 #'
-#' This is the Moore-penrose inverse of a \emph{symmetric positive definite}
+#' This is the Moore-Penrose inverse of a \emph{symmetric positive semi-definite}
 #' matrix.
 #'
-#' @param omega A matrix to invert. Must be symmetric and positive definite.
+#' @param omega A matrix to invert. Must be symmetric and positive semi-definite.
 #' @param tol The tolerance on the eigenvalues to discard.
 #'
 #' @author David Gerard
@@ -162,7 +162,8 @@ ucov <- function(nvec, alpha) {
 #'     \code{i-1}. This should be of length \code{ploidy+1}.
 #' @param thresh The threshold for ignoring the genotype. We keep
 #'     genotypes such that \code{nvec >= thresh}.
-#'     Setting this to \code{0} uses all genotypes.
+#'     Setting this to \code{0} uses all genotypes. Setting this to
+#'     \code{NULL} uses a heuristic that works well in practice.
 #' @param effdf A logical. Should we use the ad-hoc
 #'     "effective degrees of freedom" (\code{TRUE}) or not (\code{FALSE})?
 #'
@@ -180,10 +181,10 @@ ucov <- function(nvec, alpha) {
 #' @author David Gerard
 #'
 #' @examples
-#' set.seed(99)
+#' set.seed(1)
 #' ploidy <- 6
-#' size <- 100
-#' r <- 0.5
+#' size <- 1000
+#' r <- 0.1
 #' alpha <- 0.1
 #' qvec <- hwefreq(r = r, alpha = alpha, ploidy = ploidy)
 #' nvec <- c(rmultinom(n = 1, size = size, prob = qvec))
@@ -191,8 +192,19 @@ ucov <- function(nvec, alpha) {
 #'
 #' @export
 hweustat <- function(nvec,
-                     thresh = 1,
+                     thresh = NULL,
                      effdf = TRUE) {
+  if (is.null(thresh)) { ## heuristic works well in practice
+    posst <- sum(nvec) * 0.01
+    if (posst <= 5) {
+      thresh <- 5
+    } else if (posst >= 10) {
+      thresh <- 10
+    } else {
+      thresh <- round(posst)
+    }
+  }
+
   ploidy <- length(nvec) - 1
   stopifnot(ploidy %% 2 == 0, ploidy >= 4)
   ibdr <- floor(ploidy / 4)
@@ -201,10 +213,7 @@ hweustat <- function(nvec,
   minval <- sqrt(.Machine$double.eps)
 
   ## Choose which groups to aggregate ----
-  which_keep <- nvec >= thresh
-  if (sum(!which_keep) >= 1) {
-    which_keep[which_keep][which.min(nvec[which_keep])] <- FALSE
-  }
+  which_keep <- choose_agg(x = nvec, thresh = thresh)
 
   ## Return early if too few groups ----
   if (sum(which_keep) - ibdr <= 0) {
@@ -269,12 +278,7 @@ hweustat <- function(nvec,
 
   ## Calculate degrees of freedom ----
   if (effdf) {
-    dfadd <- sum((abs(alpha - minval) < minval) | (abs(alpha - upper_alpha) < minval))
-    ecounts <- freqnext(freq = nvec / sum(nvec), alpha = alpha) * sum(nvec)
-    if (any(!which_keep)) {
-      ecounts <- c(ecounts[which_keep], sum(ecounts[!which_keep]))
-    }
-    dfadd <- dfadd - sum(ecounts < 0.1)
+    dfadd <- sum((abs(alpha - minval) < 10 * minval) | (abs(alpha - upper_alpha) < 10 * minval))
   } else {
     dfadd <- 0
   }

@@ -6,24 +6,25 @@
 <!-- badges: start -->
 
 [![NSF-2132247](https://img.shields.io/badge/NSF-2132247-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=2132247)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/hwep)](https://cran.r-project.org/package=hwep)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/hwep)](https://CRAN.R-project.org/package=hwep)
 [![R-CMD-check](https://github.com/dcgerard/hwep/workflows/R-CMD-check/badge.svg)](https://github.com/dcgerard/hwep/actions)
-[![codecov](https://codecov.io/gh/dcgerard/hwep/branch/main/graph/badge.svg?token=X6QJRSQBXQ)](https://codecov.io/gh/dcgerard/hwep)
+[![codecov](https://codecov.io/gh/dcgerard/hwep/branch/main/graph/badge.svg?token=X6QJRSQBXQ)](https://app.codecov.io/gh/dcgerard/hwep)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 Inference concerning equilibrium and random mating in autopolyploids.
 Methods are available to test for equilibrium and random mating at any
-even ploidy level (&gt;2) in the presence of double reduction at
-biallelic loci. For autopolyploid populations in equilibrium, methods
-are available to estimate the degree of double reduction. We also
-provide functions to calculate genotype frequencies at equilibrium, or
-after one or several rounds of random mating, given rates of double
-reduction. For details of these methods, see Gerard (2021).
+even ploidy level (>2) in the presence of double reduction at biallelic
+loci. For autopolyploid populations in equilibrium, methods are
+available to estimate the degree of double reduction. We also provide
+functions to calculate genotype frequencies at equilibrium, or after one
+or several rounds of random mating, given rates of double reduction. For
+details of these methods, see Gerard (2021).
 
 The main functions for inference are:
 
@@ -73,12 +74,17 @@ individuals and gametes:
 The bounds on the double reduction rate under the complete equational
 segregation model are provided by `drbounds()`.
 
+Functions for evaluating the uniformity of p-values are provided in
+`ts_bands()` and `qqpvalue()`.
+
 ## Installation
 
-<!-- You can install the released version of hwep from [CRAN](https://CRAN.R-project.org) with: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- install.packages("hwep") -->
-<!-- ``` -->
+You can install the released version of hwep from
+[CRAN](https://cran.r-project.org/package=hwep) with:
+
+``` r
+install.packages("hwep")
+```
 
 You can install the development version from
 [GitHub](https://github.com/dcgerard/hwep) with:
