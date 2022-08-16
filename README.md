@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# hwep
+# hwep <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -19,12 +19,15 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 
 Inference concerning equilibrium and random mating in autopolyploids.
 Methods are available to test for equilibrium and random mating at any
-even ploidy level (>2) in the presence of double reduction at biallelic
+even ploidy level (\>2) in the presence of double reduction at biallelic
 loci. For autopolyploid populations in equilibrium, methods are
 available to estimate the degree of double reduction. We also provide
 functions to calculate genotype frequencies at equilibrium, or after one
 or several rounds of random mating, given rates of double reduction. For
-details of these methods, see Gerard (2021).
+details of these methods, see Gerard (2022a)
+\<[doi:10.1111/biom.13722](https://doi.org/10.1111/biom.13722)\> and
+Gerard (2022b)
+\<[doi:10.1101/2022.08.11.503635](https://doi.org/10.1101/2022.08.11.503635)\>.
 
 The main functions for inference are:
 
@@ -52,6 +55,15 @@ The main functions for inference are:
 
 -   `hweboot()`: Implements a bootstrap approach to test for equilibrium
     which is more appropriate for small samples and uncertain genotypes.
+
+-   `rmbayes()`: Implements a Bayesian test for random mating in
+    autopolyploids for any ploidy level.
+
+-   `rmbayesgl()`: Bayesian test for random mating, accounting for
+    genotype uncertainty using genotype likelihoods.
+
+-   `menbayesgl()`: Bayesian test for Mendelian segregation frequencies
+    in S1 or F1 populations using genotype likelihoods.
 
 Functions are provided for calculating genotype frequencies for
 individuals and gametes:
@@ -98,9 +110,9 @@ devtools::install_github("dcgerard/hwep")
 
 To cite hwep in publications use:
 
-> Gerard D (2021). “Double reduction estimation and equilibrium tests in
-> natural autopolyploid populations.” *bioRxiv*.
-> [doi:10.1101/2021.09.24.461731](https://doi.org/10.1101/2021.09.24.461731).
+> Gerard D (2022). “Double reduction estimation and equilibrium tests in
+> natural autopolyploid populations.” *Biometrics* In press.
+> [doi:10.1111/biom.13722](https://doi.org/10.1111/biom.13722).
 
 A BibTeX entry for LaTeX users is
 
@@ -108,9 +120,30 @@ A BibTeX entry for LaTeX users is
 @Article{,
   title = {Double reduction estimation and equilibrium tests in natural autopolyploid populations},
   author = {David Gerard},
-  journal = {bioRxiv},
-  year = {2021},
-  doi = {10.1101/2021.09.24.461731}
+  journal = {Biometrics},
+  year = {2022},
+  doi = {10.1111/biom.13722},
+  volume = {In press},
+}
+```
+
+If you use `rmbayes()`, `rmbayesgl()`, or `menbayeslg()`, then please
+also cite
+
+> Gerard D (2022). “Bayesian tests for random mating in autopolyploids.”
+> *bioRxiv*.
+> [doi:10.1101/2022.08.11.503635](https://doi.org/10.1101/2022.08.11.503635).
+
+A BibTeX entry for LaTeX users is
+
+``` tex
+@article{,
+    author = {Gerard, David},
+    title = {Bayesian Tests for Random Mating in Autopolyploids},
+    year = {2022},
+    doi = {10.1101/2022.08.11.503635},
+    publisher = {Cold Spring Harbor Laboratory},
+    journal = {bioRxiv}
 }
 ```
 
