@@ -1,6 +1,6 @@
 Package: hwep
 Title: Hardy-Weinberg Equilibrium in Polyploids
-Version: 2.0.1
+Version: 2.0.2
 Authors@R: 
     c(person(given = "David",
              family = "Gerard",
@@ -44,10 +44,10 @@ Biarch: true
 Depends: R (>= 3.4.0)
 SystemRequirements: GNU make
 NeedsCompilation: yes
-Packaged: 2023-03-15 15:31:11 UTC; dgerard
+Packaged: 2023-05-16 15:56:30 UTC; dgerard
 Author: David Gerard [aut, cre] (<https://orcid.org/0000-0001-9450-5023>),
   NSF DBI 2132247 [fnd]
     (https://www.nsf.gov/awardsearch/showAward?AWD_ID=2132247)
 Maintainer: David Gerard <gerard.1787@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-03-15 16:40:05 UTC
+Date/Publication: 2023-05-16 17:40:02 UTC

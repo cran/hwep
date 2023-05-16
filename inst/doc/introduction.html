@@ -27,31 +27,46 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
 
 <style type="text/css">
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
 <style type="text/css">
-code {
-white-space: pre;
-}
-.sourceCode {
-overflow: visible;
-}
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -63,54 +78,55 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-{ counter-reset: source-line 0; }
+  { counter-reset: source-line 0; }
 pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
+  { position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-color: #aaaaaa;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-{ }
+  {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } 
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.at { color: #7d9029; } 
-code span.bn { color: #40a070; } 
-code span.bu { color: #008000; } 
-code span.cf { color: #007020; font-weight: bold; } 
-code span.ch { color: #4070a0; } 
-code span.cn { color: #880000; } 
-code span.co { color: #60a0b0; font-style: italic; } 
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.do { color: #ba2121; font-style: italic; } 
-code span.dt { color: #902000; } 
-code span.dv { color: #40a070; } 
-code span.er { color: #ff0000; font-weight: bold; } 
-code span.ex { } 
-code span.fl { color: #40a070; } 
-code span.fu { color: #06287e; } 
-code span.im { color: #008000; font-weight: bold; } 
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.kw { color: #007020; font-weight: bold; } 
-code span.op { color: #666666; } 
-code span.ot { color: #007020; } 
-code span.pp { color: #bc7a00; } 
-code span.sc { color: #4070a0; } 
-code span.ss { color: #bb6688; } 
-code span.st { color: #4070a0; } 
-code span.va { color: #19177c; } 
-code span.vs { color: #4070a0; } 
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -336,281 +352,196 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Introduction to the <code>hwep</code>
-package</h1>
+<h1 class="title toc-ignore">Introduction to the <code>hwep</code> package</h1>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This vignette covers the basic usage of the <code>hwep</code>
-package. The methods implemented here are described in detail in Gerard
-(2022). We will cover:</p>
+<p>This vignette covers the basic usage of the <code>hwep</code> package. The methods implemented here are described in detail in Gerard (2022). We will cover:</p>
 <ol style="list-style-type: decimal">
 <li>Functions for calculating segregation probabilities.</li>
 <li>Functions for calculating equilibrium genotype frequencies.</li>
 <li>Functions for testing for equilibrium and random mating.</li>
 </ol>
 <p>Let’s load the package so we can begin.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hwep)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(hwep)</span></code></pre></div>
 </div>
 <div id="the-double-reduction-parameter." class="section level1">
 <h1>The double reduction parameter.</h1>
-<p>Throughout this vignette, we will discuss the “double reduction
-parameter”, which we should briefly clarify. This parameter is a vector
-of probabilities of length <code>floor(ploidy / 4)</code>, where
-<code>ploidy</code> is the ploidy of the species. Element <code>i</code>
-of this vector is the probability that an offspring will have exactly
-<code>i</code> copies of identical-by-double-reduction (IBDR) alleles.
-If <code>alpha</code> is this parameter vector, than
-<code>1 - sum(alpha)</code> is the probability that an offspring has no
-IBDR alleles.</p>
-<p>The double reduction parameter is known to have an upper bound, based
-on the model for meiosis considered. The largest bound typically assumed
-in the literature is derived from the “complete equational segregation
-model”, introduced by Mather (1935) and later generalized in Huang et
-al. (2019). These bounds can be calculated by the
-<code>drbounds()</code> function for different ploidies.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drbounds</span>(<span class="at">ploidy =</span> <span class="dv">4</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1666667</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drbounds</span>(<span class="at">ploidy =</span> <span class="dv">6</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">drbounds</span>(<span class="at">ploidy =</span> <span class="dv">8</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.38571429 0.02142857</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drbounds</span>(<span class="at">ploidy =</span> <span class="dv">10</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.43650794 0.05952381</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">drbounds</span>(<span class="at">ploidy =</span> <span class="dv">12</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.462662338 0.105519481 0.002705628</span></span></code></pre></div>
-<p>During our analysis procedures, we typically assume that the double
-reduction parameter is between 0 and these upper bounds.</p>
+<p>Throughout this vignette, we will discuss the “double reduction parameter”, which we should briefly clarify. This parameter is a vector of probabilities of length <code>floor(ploidy / 4)</code>, where <code>ploidy</code> is the ploidy of the species. Element <code>i</code> of this vector is the probability that an offspring will have exactly <code>i</code> copies of identical-by-double-reduction (IBDR) alleles. If <code>alpha</code> is this parameter vector, than <code>1 - sum(alpha)</code> is the probability that an offspring has no IBDR alleles.</p>
+<p>The double reduction parameter is known to have an upper bound, based on the model for meiosis considered. The largest bound typically assumed in the literature is derived from the “complete equational segregation model”, introduced by Mather (1935) and later generalized in Huang et al. (2019). These bounds can be calculated by the <code>drbounds()</code> function for different ploidies.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">drbounds</span>(<span class="dt">ploidy =</span> <span class="dv">4</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="co">#&gt; [1] 0.1666667</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">drbounds</span>(<span class="dt">ploidy =</span> <span class="dv">6</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co">#&gt; [1] 0.3</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="kw">drbounds</span>(<span class="dt">ploidy =</span> <span class="dv">8</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="co">#&gt; [1] 0.38571429 0.02142857</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="kw">drbounds</span>(<span class="dt">ploidy =</span> <span class="dv">10</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co">#&gt; [1] 0.43650794 0.05952381</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="kw">drbounds</span>(<span class="dt">ploidy =</span> <span class="dv">12</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="co">#&gt; [1] 0.462662338 0.105519481 0.002705628</span></span></code></pre></div>
+<p>During our analysis procedures, we typically assume that the double reduction parameter is between 0 and these upper bounds.</p>
 </div>
 <div id="segregation-probabilities" class="section level1">
 <h1>Segregation probabilities</h1>
-<p>This package comes with a few functions to calculate the
-probabilities of gamete and offspring dosages given parental dosages.
-These generalize classical Mendelian inheritance to include rates of
-double reduction. We use the specific model derived by Fisher &amp;
-Mather (1943), and later generalized by Huang et al. (2019).</p>
+<p>This package comes with a few functions to calculate the probabilities of gamete and offspring dosages given parental dosages. These generalize classical Mendelian inheritance to include rates of double reduction. We use the specific model derived by Fisher &amp; Mather (1943), and later generalized by Huang et al. (2019).</p>
 <ul>
-<li><p><code>dgamete()</code>: This function will calculate gamete
-dosage probabilities given the parental genotype. So, if we want to
-calculate the probability of gametes having dosage 0, 1, and 2 when the
-parent has a dosage of 3, the double reduction rate is 0.1, and the
-ploidy is 4, we would run:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dgamete</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">G =</span> <span class="dv">3</span>, <span class="at">ploidy =</span> <span class="dv">4</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.025 0.450 0.525</span></span></code></pre></div></li>
-<li><p><code>gsegmat()</code>: Given a ploidy level and a double
-reduction rate, this function will calculate all possible gamete dosage
-probabilities for each possible parental genotype. The rows index the
-parental genotypes and the columns index the gamete genotypes.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gsegmat</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">ploidy =</span> <span class="dv">4</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0    1     2</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0 1.000 0.00 0.000</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.525 0.45 0.025</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.200 0.60 0.200</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.025 0.45 0.525</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.000 0.00 1.000</span></span></code></pre></div>
-<p>From the above matrix, the probability of a gamete having dosage 1
-when the parental dosage is 2 is 0.6.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gsegmat</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">ploidy =</span> <span class="dv">4</span>)[<span class="dv">3</span>, <span class="dv">2</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.6</span></span></code></pre></div></li>
-<li><p><code>gsegmat_symb()</code>: This function provides a symbolic
-representation of the gamete segregation probabilities. In the output
-<code>a</code> represents the probability of exactly zero copies of IBDR
-alleles, <code>b</code> represents the probability of exactly one copy
-of IBDR alleles, <code>c</code> represents the probability of exactly
-two copies of IBDR alleles, etc…</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gsegmat_symb</span>(<span class="at">ploidy =</span> <span class="dv">4</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0               1        2              </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0 &quot;a+b&quot;           &quot;0&quot;      &quot;0&quot;            </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 &quot;(1/2)a+(3/4)b&quot; &quot;(1/2)a&quot; &quot;(1/4)b&quot;       </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 &quot;(1/6)a+(1/2)b&quot; &quot;(2/3)a&quot; &quot;(1/6)a+(1/2)b&quot;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 &quot;(1/4)b&quot;        &quot;(1/2)a&quot; &quot;(1/2)a+(3/4)b&quot;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 &quot;0&quot;             &quot;0&quot;      &quot;a+b&quot;</span></span></code></pre></div></li>
-<li><p><code>zsegarray()</code>: Instead of considering gamete dosages,
-this function will calculate <em>zygote</em> dosage probabilities given
-both parental genotypes. It will do this for each possible offspring
-dosage and each possible parental genotype.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sega <span class="ot">&lt;-</span> <span class="fu">zsegarray</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">ploidy =</span> <span class="dv">4</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sega</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; , , offspring = 0</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        parent2</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parent1     0        1     2            3            4</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0 1.000 0.525000 0.200 2.500000e-02 4.440892e-17</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1 0.525 0.275625 0.105 1.312500e-02 6.661338e-17</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       2 0.200 0.105000 0.040 5.000000e-03 3.330669e-17</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       3 0.025 0.013125 0.005 6.250000e-04 2.220446e-17</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       4 0.000 0.000000 0.000 4.440892e-17 4.440892e-17</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; , , offspring = 1</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        parent2</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parent1            0      1     2      3           4</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0 6.661338e-17 0.4500 0.600 0.4500 0.00000e+00</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1 4.500000e-01 0.4725 0.405 0.2475 1.94289e-17</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       2 6.000000e-01 0.4050 0.240 0.1050 0.00000e+00</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       3 4.500000e-01 0.2475 0.105 0.0225 0.00000e+00</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       4 0.000000e+00 0.0000 0.000 0.0000 0.00000e+00</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; , , offspring = 2</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        parent2</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parent1            0       1    2       3     4</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0 6.661338e-17 0.02500 0.20 0.52500 1.000</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1 2.500000e-02 0.22875 0.38 0.47875 0.525</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       2 2.000000e-01 0.38000 0.44 0.38000 0.200</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       3 5.250000e-01 0.47875 0.38 0.22875 0.025</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       4 1.000000e+00 0.52500 0.20 0.02500 0.000</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; , , offspring = 3</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        parent2</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parent1            0            1     2      3    4</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0 6.661338e-17 2.220446e-17 0.000 0.0000 0.00</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1 1.110223e-16 2.250000e-02 0.105 0.2475 0.45</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       2 6.661338e-17 1.050000e-01 0.240 0.4050 0.60</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       3 8.881784e-17 2.475000e-01 0.405 0.4725 0.45</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       4 8.881784e-17 4.500000e-01 0.600 0.4500 0.00</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; , , offspring = 4</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        parent2</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parent1            0            1     2            3     4</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0 6.661338e-17 4.440892e-17 0.000 4.440892e-17 0.000</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1 0.000000e+00 6.250000e-04 0.005 1.312500e-02 0.025</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       2 4.440892e-17 5.000000e-03 0.040 1.050000e-01 0.200</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       3 4.440892e-17 1.312500e-02 0.105 2.756250e-01 0.525</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       4 4.440892e-17 2.500000e-02 0.200 5.250000e-01 1.000</span></span></code></pre></div>
-<p>Thus, the probability of an offspring dosage of 3 when parental
-dosages are 2 and 4, is</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sega[<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.105</span></span></code></pre></div></li>
+<li><p><code>dgamete()</code>: This function will calculate gamete dosage probabilities given the parental genotype. So, if we want to calculate the probability of gametes having dosage 0, 1, and 2 when the parent has a dosage of 3, the double reduction rate is 0.1, and the ploidy is 4, we would run:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">dgamete</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">G =</span> <span class="dv">3</span>, <span class="dt">ploidy =</span> <span class="dv">4</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="co">#&gt; [1] 0.025 0.450 0.525</span></span></code></pre></div></li>
+<li><p><code>gsegmat()</code>: Given a ploidy level and a double reduction rate, this function will calculate all possible gamete dosage probabilities for each possible parental genotype. The rows index the parental genotypes and the columns index the gamete genotypes.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">gsegmat</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">ploidy =</span> <span class="dv">4</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="co">#&gt;       0    1     2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="co">#&gt; 0 1.000 0.00 0.000</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">#&gt; 1 0.525 0.45 0.025</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="co">#&gt; 2 0.200 0.60 0.200</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co">#&gt; 3 0.025 0.45 0.525</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="co">#&gt; 4 0.000 0.00 1.000</span></span></code></pre></div>
+<p>From the above matrix, the probability of a gamete having dosage 1 when the parental dosage is 2 is 0.6.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">gsegmat</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">ploidy =</span> <span class="dv">4</span>)[<span class="dv">3</span>, <span class="dv">2</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="co">#&gt; [1] 0.6</span></span></code></pre></div></li>
+<li><p><code>gsegmat_symb()</code>: This function provides a symbolic representation of the gamete segregation probabilities. In the output <code>a</code> represents the probability of exactly zero copies of IBDR alleles, <code>b</code> represents the probability of exactly one copy of IBDR alleles, <code>c</code> represents the probability of exactly two copies of IBDR alleles, etc…</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">gsegmat_symb</span>(<span class="dt">ploidy =</span> <span class="dv">4</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="co">#&gt;   0               1        2              </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="co">#&gt; 0 &quot;a+b&quot;           &quot;0&quot;      &quot;0&quot;            </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="co">#&gt; 1 &quot;(1/2)a+(3/4)b&quot; &quot;(1/2)a&quot; &quot;(1/4)b&quot;       </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a><span class="co">#&gt; 2 &quot;(1/6)a+(1/2)b&quot; &quot;(2/3)a&quot; &quot;(1/6)a+(1/2)b&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a><span class="co">#&gt; 3 &quot;(1/4)b&quot;        &quot;(1/2)a&quot; &quot;(1/2)a+(3/4)b&quot;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="co">#&gt; 4 &quot;0&quot;             &quot;0&quot;      &quot;a+b&quot;</span></span></code></pre></div></li>
+<li><p><code>zsegarray()</code>: Instead of considering gamete dosages, this function will calculate <em>zygote</em> dosage probabilities given both parental genotypes. It will do this for each possible offspring dosage and each possible parental genotype.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>sega &lt;-<span class="st"> </span><span class="kw">zsegarray</span>(<span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">ploidy =</span> <span class="dv">4</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>sega</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="co">#&gt; , , offspring = 0</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="co">#&gt;        parent2</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="co">#&gt; parent1     0        1     2            3            4</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a><span class="co">#&gt;       0 1.000 0.525000 0.200 2.500000e-02 4.440892e-17</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="co">#&gt;       1 0.525 0.275625 0.105 1.312500e-02 6.661338e-17</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="co">#&gt;       2 0.200 0.105000 0.040 5.000000e-03 3.330669e-17</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="co">#&gt;       3 0.025 0.013125 0.005 6.250000e-04 2.220446e-17</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="co">#&gt;       4 0.000 0.000000 0.000 4.440892e-17 4.440892e-17</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a><span class="co">#&gt; , , offspring = 1</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a><span class="co">#&gt;        parent2</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a><span class="co">#&gt; parent1            0      1     2      3           4</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a><span class="co">#&gt;       0 6.661338e-17 0.4500 0.600 0.4500 0.00000e+00</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a><span class="co">#&gt;       1 4.500000e-01 0.4725 0.405 0.2475 1.94289e-17</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a><span class="co">#&gt;       2 6.000000e-01 0.4050 0.240 0.1050 0.00000e+00</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a><span class="co">#&gt;       3 4.500000e-01 0.2475 0.105 0.0225 0.00000e+00</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a><span class="co">#&gt;       4 0.000000e+00 0.0000 0.000 0.0000 0.00000e+00</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true"></a><span class="co">#&gt; , , offspring = 2</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true"></a><span class="co">#&gt;        parent2</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true"></a><span class="co">#&gt; parent1            0       1    2       3     4</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true"></a><span class="co">#&gt;       0 6.661338e-17 0.02500 0.20 0.52500 1.000</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true"></a><span class="co">#&gt;       1 2.500000e-02 0.22875 0.38 0.47875 0.525</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true"></a><span class="co">#&gt;       2 2.000000e-01 0.38000 0.44 0.38000 0.200</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true"></a><span class="co">#&gt;       3 5.250000e-01 0.47875 0.38 0.22875 0.025</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true"></a><span class="co">#&gt;       4 1.000000e+00 0.52500 0.20 0.02500 0.000</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true"></a><span class="co">#&gt; , , offspring = 3</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true"></a><span class="co">#&gt;        parent2</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true"></a><span class="co">#&gt; parent1            0            1     2      3    4</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true"></a><span class="co">#&gt;       0 6.661338e-17 2.220446e-17 0.000 0.0000 0.00</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true"></a><span class="co">#&gt;       1 1.110223e-16 2.250000e-02 0.105 0.2475 0.45</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true"></a><span class="co">#&gt;       2 6.661338e-17 1.050000e-01 0.240 0.4050 0.60</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true"></a><span class="co">#&gt;       3 8.881784e-17 2.475000e-01 0.405 0.4725 0.45</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true"></a><span class="co">#&gt;       4 8.881784e-17 4.500000e-01 0.600 0.4500 0.00</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true"></a><span class="co">#&gt; , , offspring = 4</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true"></a><span class="co">#&gt;        parent2</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true"></a><span class="co">#&gt; parent1            0            1     2            3     4</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true"></a><span class="co">#&gt;       0 6.661338e-17 4.440892e-17 0.000 4.440892e-17 0.000</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true"></a><span class="co">#&gt;       1 0.000000e+00 6.250000e-04 0.005 1.312500e-02 0.025</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true"></a><span class="co">#&gt;       2 4.440892e-17 5.000000e-03 0.040 1.050000e-01 0.200</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true"></a><span class="co">#&gt;       3 4.440892e-17 1.312500e-02 0.105 2.756250e-01 0.525</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true"></a><span class="co">#&gt;       4 4.440892e-17 2.500000e-02 0.200 5.250000e-01 1.000</span></span></code></pre></div>
+<p>Thus, the probability of an offspring dosage of 3 when parental dosages are 2 and 4, is</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>sega[<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="co">#&gt; [1] 0.105</span></span></code></pre></div></li>
 </ul>
 </div>
 <div id="equilibrium-genotype-frequencies" class="section level1">
 <h1>Equilibrium genotype frequencies</h1>
-<p>Equilibrium frequencies can be generated with <code>hwefreq()</code>
-for arbitrary (even) ploidy levels.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hout <span class="ot">&lt;-</span> <span class="fu">hwefreq</span>(<span class="at">r =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">ploidy =</span> <span class="dv">6</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(hout, <span class="at">digits =</span> <span class="dv">5</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.55062 0.32437 0.10232 0.01998 0.00250 0.00019 0.00001</span></span></code></pre></div>
-<p>Alternatively, you can control the number of iterations of random
-mating before stopping. The population begins in a state where
-<code>r</code> proportion of individuals have genotype
-<code>ploidy</code> and <code>1-r</code> proportion has genotype
-<code>0</code>. It then updates each generation’s genotype frequencies
-using <code>freqnext()</code>. E.g., for <code>r=0.1</code> and
-<code>alpha=0.1</code>, after the first round of random mating, we
-have:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">freqnext</span>(<span class="at">freq =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.1</span>), <span class="at">alpha =</span> <span class="fl">0.1</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8.100000e-01 6.106227e-17 1.800000e-01 4.440892e-17 1.000000e-02</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hwefreq</span>(<span class="at">r =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">niter =</span> <span class="dv">1</span>, <span class="at">ploidy =</span> <span class="dv">4</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8.100000e-01 6.106227e-17 1.800000e-01 4.440892e-17 1.000000e-02</span></span></code></pre></div>
+<p>Equilibrium frequencies can be generated with <code>hwefreq()</code> for arbitrary (even) ploidy levels.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>hout &lt;-<span class="st"> </span><span class="kw">hwefreq</span>(<span class="dt">r =</span> <span class="fl">0.1</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">ploidy =</span> <span class="dv">6</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="kw">round</span>(hout, <span class="dt">digits =</span> <span class="dv">5</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="co">#&gt; [1] 0.55062 0.32437 0.10232 0.01998 0.00250 0.00019 0.00001</span></span></code></pre></div>
+<p>Alternatively, you can control the number of iterations of random mating before stopping. The population begins in a state where <code>r</code> proportion of individuals have genotype <code>ploidy</code> and <code>1-r</code> proportion has genotype <code>0</code>. It then updates each generation’s genotype frequencies using <code>freqnext()</code>. E.g., for <code>r=0.1</code> and <code>alpha=0.1</code>, after the first round of random mating, we have:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">freqnext</span>(<span class="dt">freq =</span> <span class="kw">c</span>(<span class="fl">0.9</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.1</span>), <span class="dt">alpha =</span> <span class="fl">0.1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="co">#&gt; [1] 8.100000e-01 6.106227e-17 1.800000e-01 4.440892e-17 1.000000e-02</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">hwefreq</span>(<span class="dt">r =</span> <span class="fl">0.1</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">niter =</span> <span class="dv">1</span>, <span class="dt">ploidy =</span> <span class="dv">4</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="co">#&gt; [1] 8.100000e-01 6.106227e-17 1.800000e-01 4.440892e-17 1.000000e-02</span></span></code></pre></div>
 </div>
 <div id="testing-for-equilibrium-and-random-mating" class="section level1">
 <h1>Testing for equilibrium and random mating</h1>
-<p>The main function for this package is <code>hwefit()</code>, which
-implements various tests for random mating and equilibrium. This
-function has parallelization support through the future package. We’ll
-demonstrate using the future package assuming at least two cores are
-available.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">availableCores</span>()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; system </span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      8</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p>Let’s simulate some data at equilibrium to demonstrate our
-methods:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>geno_freq <span class="ot">&lt;-</span> <span class="fu">hwefreq</span>(<span class="at">r =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">ploidy =</span> <span class="dv">6</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>nmat <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">rmultinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> geno_freq))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nmat)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]    0   10   28   22   23   12    5</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]    1    7   25   35   15   15    2</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,]    2   10   23   26   22   14    3</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,]    3   12   18   26   19   15    7</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]    2    8   26   27   25   10    2</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,]    0   11   19   31   26   10    3</span></span></code></pre></div>
-<p><code>hwefit()</code> expects a matrix of genotype counts, where the
-rows index the loci and the columns index the genotype. So
-<code>nmat[i, j]</code> is the count of the number of individuals that
-have dosage <code>j-1</code> at locus <code>i</code>.</p>
-<p>You control the type of test via the <code>type</code> argument.
-Using <code>type = &quot;ustat&quot;</code> will use the <span class="math inline">\(U\)</span>-statistic approach to test for
-equilibrium, as implemented in <code>hweustat()</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>uout <span class="ot">&lt;-</span> <span class="fu">hwefit</span>(<span class="at">nmat =</span> nmat, <span class="at">type =</span> <span class="st">&quot;ustat&quot;</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Using 2 worker(s) to run hwefit() on 1000 loci...</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Done!</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Don&#39;t forget to shut down your workers with:</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   future::plan(future::sequential)</span></span></code></pre></div>
-<p>The output is a list-like object that contains the estimates of
-double reduction (<code>alpha</code>), the <span class="math inline">\(p\)</span>-values for the test against the null of
-equilibrium (<code>p_hwe</code>), as well as the test-statistics
-(<code>chisq_hwe</code>) and degrees of freedom (<code>df_hwe</code>) of
-this test.</p>
+<p>The main function for this package is <code>hwefit()</code>, which implements various tests for random mating and equilibrium. This function has parallelization support through the future package. We’ll demonstrate using the future package assuming at least two cores are available.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">library</span>(future)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="kw">availableCores</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="co">#&gt; system </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="co">#&gt;      8</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a><span class="kw">plan</span>(multisession, <span class="dt">workers =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Let’s simulate some data at equilibrium to demonstrate our methods:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>geno_freq &lt;-<span class="st"> </span><span class="kw">hwefreq</span>(<span class="dt">r =</span> <span class="fl">0.5</span>, <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">ploidy =</span> <span class="dv">6</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a>nmat &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">rmultinom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">100</span>, <span class="dt">prob =</span> geno_freq))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="kw">head</span>(nmat)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a><span class="co">#&gt; [1,]    0   10   28   22   23   12    5</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a><span class="co">#&gt; [2,]    1    7   25   35   15   15    2</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a><span class="co">#&gt; [3,]    2   10   23   26   22   14    3</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a><span class="co">#&gt; [4,]    3   12   18   26   19   15    7</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="co">#&gt; [5,]    2    8   26   27   25   10    2</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a><span class="co">#&gt; [6,]    0   11   19   31   26   10    3</span></span></code></pre></div>
+<p><code>hwefit()</code> expects a matrix of genotype counts, where the rows index the loci and the columns index the genotype. So <code>nmat[i, j]</code> is the count of the number of individuals that have dosage <code>j-1</code> at locus <code>i</code>.</p>
+<p>You control the type of test via the <code>type</code> argument. Using <code>type = &quot;ustat&quot;</code> will use the <span class="math inline">\(U\)</span>-statistic approach to test for equilibrium, as implemented in <code>hweustat()</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>uout &lt;-<span class="st"> </span><span class="kw">hwefit</span>(<span class="dt">nmat =</span> nmat, <span class="dt">type =</span> <span class="st">&quot;ustat&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="co">#&gt; Using 2 worker(s) to run hwefit() on 1000 loci...</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="co">#&gt; Done!</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a><span class="co">#&gt; Don&#39;t forget to shut down your workers with:</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true"></a><span class="co">#&gt;   future::plan(future::sequential)</span></span></code></pre></div>
+<p>The output is a list-like object that contains the estimates of double reduction (<code>alpha</code>), the <span class="math inline">\(p\)</span>-values for the test against the null of equilibrium (<code>p_hwe</code>), as well as the test-statistics (<code>chisq_hwe</code>) and degrees of freedom (<code>df_hwe</code>) of this test.</p>
 <p>On average, we obtain good estimates of the double reduction rate</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(uout<span class="sc">$</span>alpha1)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1109858</span></span></code></pre></div>
-<p>But the sampling properties of this estimator are highly variable,
-even for such a large sample size:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(uout<span class="sc">$</span>alpha1)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">mean</span>(uout<span class="op">$</span>alpha1)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="co">#&gt; [1] 0.1109858</span></span></code></pre></div>
+<p>But the sampling properties of this estimator are highly variable, even for such a large sample size:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">hist</span>(uout<span class="op">$</span>alpha1)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>This highlights the difficulty in estimating double reduction using
-just a single biallelic locus.</p>
-<p>The p-values are generally uniformly distributed, as they should be
-since we generated data under the null of equilibrium.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(uout<span class="sc">$</span>p_hwe, <span class="at">breaks =</span> <span class="dv">10</span>, <span class="at">xlab =</span> <span class="st">&quot;P-values&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>This highlights the difficulty in estimating double reduction using just a single biallelic locus.</p>
+<p>The p-values are generally uniformly distributed, as they should be since we generated data under the null of equilibrium.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a><span class="kw">hist</span>(uout<span class="op">$</span>p_hwe, <span class="dt">breaks =</span> <span class="dv">10</span>, <span class="dt">xlab =</span> <span class="st">&quot;P-values&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(<span class="at">x =</span> <span class="fu">ppoints</span>(<span class="fu">length</span>(uout<span class="sc">$</span>p_hwe)), </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> uout<span class="sc">$</span>p_hwe, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;Theoretical Quantiles&quot;</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Empirical Quantiles&quot;</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;QQ-plot&quot;</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="kw">qqplot</span>(<span class="dt">x =</span> <span class="kw">ppoints</span>(<span class="kw">length</span>(uout<span class="op">$</span>p_hwe)), </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a>       <span class="dt">y =</span> uout<span class="op">$</span>p_hwe, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a>       <span class="dt">xlab =</span> <span class="st">&quot;Theoretical Quantiles&quot;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a>       <span class="dt">ylab =</span> <span class="st">&quot;Empirical Quantiles&quot;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a>       <span class="dt">main =</span> <span class="st">&quot;QQ-plot&quot;</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">col =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>You can view this QQ-plot on the <span class="math inline">\(-log_{10}\)</span>-scale using
-<code>qqpvalue()</code>. This plot will also show the simultaneous
-confidence bands for the QQ-plot from Aldor-Noiman et al. (2013), which
-can also be calculated using <code>ts_bands()</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqpvalue</span>(<span class="at">pvals =</span> uout<span class="sc">$</span>p_hwe, <span class="at">method =</span> <span class="st">&quot;base&quot;</span>)</span></code></pre></div>
+<p>You can view this QQ-plot on the <span class="math inline">\(-log_{10}\)</span>-scale using <code>qqpvalue()</code>. This plot will also show the simultaneous confidence bands for the QQ-plot from Aldor-Noiman et al. (2013), which can also be calculated using <code>ts_bands()</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a><span class="kw">qqpvalue</span>(<span class="dt">pvals =</span> uout<span class="op">$</span>p_hwe, <span class="dt">method =</span> <span class="st">&quot;base&quot;</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>Make sure to shut down your workers after you are done:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(<span class="st">&quot;sequential&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="kw">plan</span>(<span class="st">&quot;sequential&quot;</span>)</span></code></pre></div>
 <p>The other values of “type” run different procedures:</p>
 <ul>
-<li><code>&quot;mle&quot;</code>: Runs likelihood procedures to test for
-equilibrium and estimate double reduction. Only available for (even)
-ploidies less than or equal to 10. This generally behaves similarly to
-the <span class="math inline">\(U\)</span>-statistic approach. This is
-implemented by the <code>hwelike()</code> function.</li>
-<li><code>&quot;rm&quot;</code>: Runs likelihood procedures to test for random
-mating. This is implemented by the <code>rmlike()</code> function.</li>
-<li><code>&quot;nodr&quot;</code>: Runs likelihood procedures to test for
-equilibrium assuming no double reduction. This is implemented by the
-<code>hwenodr()</code> function.</li>
+<li><code>&quot;mle&quot;</code>: Runs likelihood procedures to test for equilibrium and estimate double reduction. Only available for (even) ploidies less than or equal to 10. This generally behaves similarly to the <span class="math inline">\(U\)</span>-statistic approach. This is implemented by the <code>hwelike()</code> function.</li>
+<li><code>&quot;rm&quot;</code>: Runs likelihood procedures to test for random mating. This is implemented by the <code>rmlike()</code> function.</li>
+<li><code>&quot;nodr&quot;</code>: Runs likelihood procedures to test for equilibrium assuming no double reduction. This is implemented by the <code>hwenodr()</code> function.</li>
 </ul>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
 <ul>
-<li><p>Aldor-Noiman, S., Brown, L. D., Buja, A., Rolke, W., &amp; Stine,
-R. A. (2013). The power to see: A new graphical test of normality. The
-American Statistician, 67(4), 249-260. doi:
-10.1080/00031305.2013.847865</p></li>
-<li><p>Fisher, R. A., &amp; Mather, K. (1943). The inheritance of style
-length in <em>Lythrum salicaria</em>. <em>Annals of Eugenics</em>,
-12(1), 1-23. doi: 10.1111/j.1469-1809.1943.tb02307.x</p></li>
-<li><p>Gerard D (2022). “Double reduction estimation and equilibrium
-tests in natural autopolyploid populations.” <em>Biometrics</em> (In
-press). doi: 10.1111/biom.13722</p></li>
-<li><p>Huang, K., Wang, T., Dunn, D. W., Zhang, P., Cao, X., Liu, R.,
-&amp; Li, B. (2019). Genotypic frequencies at equilibrium for polysomic
-inheritance under double-reduction. <em>G3: Genes | Genomes |
-Genetics</em>, 9(5), 1693-1706. doi: 10.1534/g3.119.400132</p></li>
-<li><p>Mather, K. (1935). Reductional and equational separation of the
-chromosomes in bivalents and multivalents. <em>Journal of Genetics</em>,
-30(1), 53-78. doi: 10.1007/BF02982205</p></li>
+<li><p>Aldor-Noiman, S., Brown, L. D., Buja, A., Rolke, W., &amp; Stine, R. A. (2013). The power to see: A new graphical test of normality. The American Statistician, 67(4), 249-260. doi: 10.1080/00031305.2013.847865</p></li>
+<li><p>Fisher, R. A., &amp; Mather, K. (1943). The inheritance of style length in <em>Lythrum salicaria</em>. <em>Annals of Eugenics</em>, 12(1), 1-23. doi: 10.1111/j.1469-1809.1943.tb02307.x</p></li>
+<li><p>Gerard D (2022). “Double reduction estimation and equilibrium tests in natural autopolyploid populations.” <em>Biometrics</em> (In press). doi: 10.1111/biom.13722</p></li>
+<li><p>Huang, K., Wang, T., Dunn, D. W., Zhang, P., Cao, X., Liu, R., &amp; Li, B. (2019). Genotypic frequencies at equilibrium for polysomic inheritance under double-reduction. <em>G3: Genes | Genomes | Genetics</em>, 9(5), 1693-1706. doi: 10.1534/g3.119.400132</p></li>
+<li><p>Mather, K. (1935). Reductional and equational separation of the chromosomes in bivalents and multivalents. <em>Journal of Genetics</em>, 30(1), 53-78. doi: 10.1007/BF02982205</p></li>
 </ul>
 </div>
 
